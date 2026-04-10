@@ -10,6 +10,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.simon.ui.theme.SimonTheme
 
@@ -33,8 +35,17 @@ fun MainScreen(modifier: Modifier = Modifier){
     ConstraintLayout(modifier = modifier) {
         val txt = createRef()
         Text(
-            modifier = Modifier.constrainAs(txt){},
+            modifier = Modifier.constrainAs(txt) {
+                top.linkTo(parent.top)
+                start.linkTo(parent.start, margin = 4.dp)
+            },
             text = "prova"
         )
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MainScreenPreview(){
+    MainScreen()
 }
