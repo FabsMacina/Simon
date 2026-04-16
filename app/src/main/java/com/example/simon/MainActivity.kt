@@ -13,6 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.ui.Alignment
+import androidx.constraintlayout.compose.ChainStyle
 import com.example.simon.ui.theme.SimonTheme
 
 
@@ -30,56 +36,43 @@ class MainActivity: ComponentActivity() {
     }
 }
 
-var a: Int = 0
-
 @Composable
 fun MainScreen(modifier: Modifier = Modifier){
     ConstraintLayout(modifier = modifier) {
-        val (b1, b2, b3, b4, b5, b6) = createRefs()
-
-        Button(
-            modifier = Modifier.constrainAs(b1){
-                top.linkTo(parent.top)
-                start.linkTo(parent.start, margin = 4.dp)
-            },
-            onClick = {}
-        ){}
-        Button(
-            modifier = Modifier.constrainAs(b2){
-                top.linkTo(parent.top)
-                start.linkTo(parent.end, margin = 4.dp)
-            },
-            onClick = {}
-        ){}
-        Button(
-            modifier = Modifier.constrainAs(b3){
-                top.linkTo(b1.bottom)
-                start.linkTo(parent.start, margin = 4.dp)
-            },
-            onClick = {}
-        ){}
-        Button(
-            modifier = Modifier.constrainAs(b4){
-                top.linkTo(b2.bottom)
-                start.linkTo(parent.end, margin = 4.dp)
-            },
-            onClick = {}
-        ){}
-        Button(
-            modifier = Modifier.constrainAs(b5){
-                top.linkTo(b3.bottom)
-                start.linkTo(parent.start, margin = 4.dp)
-            },
-            onClick = {}
-        ){}
-        Button(
-            modifier = Modifier.constrainAs(b6){
-                top.linkTo(b4.bottom)
-                start.linkTo(parent.end, margin = 4.dp)
-            },
-            onClick = {}
-        ){}
-
+        val (c1) = createRefs()
+        Column(modifier = modifier.constrainAs(c1) {},
+            horizontalAlignment = Alignment.CenterHorizontally) {
+            Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
+                Button(
+                    modifier = modifier.weight(0.1f),
+                    onClick = {}
+                ) {}
+                Button(
+                    modifier = modifier.weight(0.1f),
+                    onClick = {}
+                ) {}
+            }
+            Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
+                Button(
+                    modifier = modifier.weight(0.1f),
+                    onClick = {}
+                ) {}
+                Button(
+                    modifier = modifier.weight(0.1f),
+                    onClick = {}
+                ) {}
+            }
+            Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
+                Button(
+                    modifier = modifier.weight(0.1f),
+                    onClick = {}
+                ) {}
+                Button(
+                    modifier = modifier.weight(0.1f),
+                    onClick = {}
+                ) {}
+            }
+        }
     }
 }
 
