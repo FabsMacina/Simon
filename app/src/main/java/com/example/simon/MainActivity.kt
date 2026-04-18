@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -18,7 +19,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.ui.Alignment
-import androidx.constraintlayout.compose.ChainStyle
+import com.example.simon.ui.theme.BuBlue
+import com.example.simon.ui.theme.BuCyan
+import com.example.simon.ui.theme.BuGreen
+import com.example.simon.ui.theme.BuMagenta
+import com.example.simon.ui.theme.BuRed
+import com.example.simon.ui.theme.BuYellow
 import com.example.simon.ui.theme.SimonTheme
 
 
@@ -42,36 +48,45 @@ fun MainScreen(modifier: Modifier = Modifier){
         val (c1) = createRefs()
         Column(modifier = modifier.constrainAs(c1) {},
             horizontalAlignment = Alignment.CenterHorizontally) {
-            Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
+            Row(modifier = Modifier, verticalAlignment = Alignment.CenterVertically) {
                 Button(
-                    modifier = modifier.weight(0.1f),
+                    modifier = modifier.weight(1f),
+                    colors = BuRed,
                     onClick = {}
                 ) {}
                 Button(
-                    modifier = modifier.weight(0.1f),
-                    onClick = {}
-                ) {}
-            }
-            Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
-                Button(
-                    modifier = modifier.weight(0.1f),
-                    onClick = {}
-                ) {}
-                Button(
-                    modifier = modifier.weight(0.1f),
+                    modifier = modifier.weight(1f),
+                    colors = BuGreen,
                     onClick = {}
                 ) {}
             }
-            Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
+            Row(modifier = Modifier, verticalAlignment = Alignment.CenterVertically) {
                 Button(
-                    modifier = modifier.weight(0.1f),
+                    modifier = modifier.weight(1f),
+                    colors = BuBlue,
                     onClick = {}
                 ) {}
                 Button(
-                    modifier = modifier.weight(0.1f),
+                    modifier = modifier.weight(1f),
+                    colors = BuMagenta,
                     onClick = {}
                 ) {}
             }
+            Row(modifier = Modifier, verticalAlignment = Alignment.CenterVertically) {
+                Button(
+                    modifier = modifier.weight(1f),
+                    colors = BuYellow,
+                    onClick = {}
+                ) {}
+                Button(
+                    modifier = modifier.weight(1f),
+                    colors = BuCyan,
+                    onClick = {}
+                ) {}
+            }
+        }
+        Row(modifier = modifier){
+
         }
     }
 }
