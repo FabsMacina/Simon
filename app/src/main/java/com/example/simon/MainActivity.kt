@@ -26,6 +26,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalConfiguration
@@ -90,7 +91,7 @@ fun MainScreen(modifier: Modifier = Modifier){
             }
         }
         Column(modifier = if(orientation == Configuration.ORIENTATION_LANDSCAPE){
-            Modifier.fillMaxHeight(0.95f).fillMaxWidth(0.5f)
+            Modifier.fillMaxHeight(0.9f).fillMaxWidth(0.5f)
             }else{
             Modifier.fillMaxHeight(0.5f).fillMaxWidth()
         }
@@ -165,12 +166,14 @@ fun MainScreen(modifier: Modifier = Modifier){
                 start.linkTo(parent.start)
             }
         }  ){
-            Text(
-                text = buttonCounter,
-                modifier = modifier.verticalScroll(scrollState),
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Medium
-            )
+            Card(modifier = Modifier.fillMaxHeight().fillMaxWidth()) {
+                Text(
+                    text = buttonCounter,
+                    modifier = modifier.verticalScroll(scrollState),
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Medium
+                )
+            }
         }
         Row(modifier = if(orientation == Configuration.ORIENTATION_LANDSCAPE){
             Modifier.fillMaxHeight(0.2f).fillMaxWidth(0.5f)
@@ -193,7 +196,9 @@ fun MainScreen(modifier: Modifier = Modifier){
                 onClick = {buttonCounter = ""}
             ) {
                 Text(text = stringResource(R.string.canc),
-                    modifier = modifier)
+                    modifier = Modifier,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Medium)
             }
             Button(
                 modifier = Modifier.weight(1f).fillMaxHeight(),
@@ -202,7 +207,9 @@ fun MainScreen(modifier: Modifier = Modifier){
                 onClick = {buttonCounter = ""}
             ) {
                 Text(text = stringResource(R.string.end),
-                    modifier = modifier)
+                    modifier = Modifier,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Medium)
             }
         }
     }
