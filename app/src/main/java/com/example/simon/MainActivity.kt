@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -17,7 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.mutableStateOf
@@ -53,55 +57,78 @@ class MainActivity: ComponentActivity() {
 fun MainScreen(modifier: Modifier = Modifier){
     var buttonCounter by rememberSaveable { mutableStateOf("") }
     ConstraintLayout(modifier = modifier) {
-        val (c1, r1) = createRefs()
-        Column(modifier = modifier.constrainAs(c1) {},
-            horizontalAlignment = Alignment.CenterHorizontally) {
-            Row(modifier = Modifier, verticalAlignment = Alignment.CenterVertically) {
+        val (c1, c2, r1) = createRefs()
+        Column(modifier = Modifier.fillMaxHeight(0.6f).constrainAs(c1) {},
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(0.dp)) {
+            Row(modifier = Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
                 Button(
-                    modifier = modifier.weight(1f),
+                    modifier = modifier.weight(1f).fillMaxHeight(),
                     colors = ButtonDefaults.buttonColors(Red),
+                    contentPadding = PaddingValues(0.dp),
                     onClick = { buttonCounter += "R, " }
                 ) {}
                 Button(
-                    modifier = modifier.weight(1f),
+                    modifier = modifier.weight(1f).fillMaxHeight(),
                     colors = ButtonDefaults.buttonColors(Green),
+                    contentPadding = PaddingValues(0.dp),
                     onClick = { buttonCounter += "G, " }
                 ) {}
             }
-            Row(modifier = Modifier, verticalAlignment = Alignment.CenterVertically) {
+            Row(modifier = Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
                 Button(
-                    modifier = modifier.weight(1f),
+                    modifier = modifier.weight(1f).fillMaxHeight(),
                     colors = ButtonDefaults.buttonColors(Blue),
+                    contentPadding = PaddingValues(0.dp),
                     onClick = { buttonCounter += "B, " }
                 ) {}
                 Button(
-                    modifier = modifier.weight(1f),
+                    modifier = modifier.weight(1f).fillMaxHeight(),
                     colors = ButtonDefaults.buttonColors(Magenta),
+                    contentPadding = PaddingValues(0.dp),
                     onClick = { buttonCounter += "M, " }
                 ) {}
             }
-            Row(modifier = Modifier, verticalAlignment = Alignment.CenterVertically) {
+            Row(modifier = Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
                 Button(
-                    modifier = modifier.weight(1f),
+                    modifier = modifier.weight(1f).fillMaxHeight(),
                     colors = ButtonDefaults.buttonColors(Yellow),
+                    contentPadding = PaddingValues(0.dp),
                     onClick = { buttonCounter += "Y, " }
                 ) {}
                 Button(
-                    modifier = modifier.weight(1f),
+                    modifier = modifier.weight(1f).fillMaxHeight(),
                     colors = ButtonDefaults.buttonColors(Cyan),
+                    contentPadding = PaddingValues(0.dp),
                     onClick = { buttonCounter += "C, " }
                 ) {}
             }
         }
-        Row(modifier = modifier.padding(10.dp).constrainAs(r1){
+        Column(modifier = Modifier.padding(0.dp).fillMaxHeight(0.2f).constrainAs(c2){
             top.linkTo(c1.bottom)
-        }){
+            }  ){
             Text(
                 text = buttonCounter,
                 modifier = modifier,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Medium
             )
+        }
+        Row(modifier = Modifier.padding(0.dp).fillMaxHeight(0.1f).constrainAs(r1){
+            top.linkTo(c2.bottom)
+        } ){
+            Button(
+                modifier = Modifier.weight(1f).fillMaxHeight(),
+                colors = ButtonDefaults.buttonColors(Red),
+                contentPadding = PaddingValues(0.dp),
+                onClick = {}
+            ) {}
+            Button(
+                modifier = Modifier.weight(1f).fillMaxHeight(),
+                colors = ButtonDefaults.buttonColors(Green),
+                contentPadding = PaddingValues(0.dp),
+                onClick = {}
+            ) {}
         }
     }
 }
