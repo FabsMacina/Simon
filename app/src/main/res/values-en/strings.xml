@@ -3,4 +3,5 @@
     <string name="app_name">Simon</string>
     <string name="canc">Cancel</string>
     <string name="end">End game</string>
+    <string name="lang">English</string>
 </resources>
