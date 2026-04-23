@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.simon.ui.theme.SimonTheme
 
 
@@ -21,7 +22,7 @@ class MainActivity: ComponentActivity() {
         setContent {
             SimonTheme {
                 val navController = rememberNavController()
-                val currentHistory = GameHistory()
+                val currentHistory: GameHistory = viewModel()
 
                 Scaffold(modifier = Modifier.fillMaxSize()){ innerPadding ->
                     NavHost(

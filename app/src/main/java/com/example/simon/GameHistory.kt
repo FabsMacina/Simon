@@ -1,8 +1,9 @@
 package com.example.simon
 
+import androidx.lifecycle.ViewModel
 import kotlin.collections.MutableList
 
-class GameHistory(){
+class GameHistory(): ViewModel(){
 
     private var gameSequenceHistory = MutableList(0){""}
     private var gameCountHistory = MutableList(0){0}
