@@ -4,17 +4,16 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 
 @Composable
-fun HistoryScreen(){
+fun HistoryScreen(history: GameHistory){
     val orientation = LocalConfiguration.current.orientation
-    val match = GameHistory()
 
     ConstraintLayout(modifier = Modifier) {
         val (c1, c2) = createRefs()
@@ -30,10 +29,11 @@ fun HistoryScreen(){
                 start.linkTo(parent.start)
                 end.linkTo(c2.start)
             } ) {
-            item{
-                Text("1")
-                Text("2")
-                Text("3")
+            itemsIndexed(history.getGameCountHistory()){ index, item ->
+                Text(text = if(history.getGameCountHistory().isNotEmpty())
+                    "$item"
+                else
+                    "")
             }
         }
         LazyColumn(modifier= Modifier
@@ -48,19 +48,13 @@ fun HistoryScreen(){
                 start.linkTo(c1.end)
                 end.linkTo(parent.end)
             }) {
-            items(match.getGameHistory().size){
-                Text(text = if(match.getGameHistory().isNotEmpty())
-                        match.getGameHistory()[match.getGameHistory().size-1]
-                else
-                "")
+            itemsIndexed(history.getGameSequenceHistory()){ index, item ->
+                Text(text = if(history.getGameSequenceHistory().isNotEmpty())
+                        item
+                    else
+                        "")
             }
         }
 
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun HistoryScreenPreview(){
-    HistoryScreen()
 }

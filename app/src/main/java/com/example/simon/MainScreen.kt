@@ -38,11 +38,10 @@ import com.example.simon.ui.theme.Red2
 import com.example.simon.ui.theme.Yellow
 
 @Composable
-fun MainScreen(onEndClicked: () -> Unit){
-    var buttonCounter by rememberSaveable { mutableStateOf("") }
+fun MainScreen(history: GameHistory, onEndClicked: () -> Unit){
+    var currentSequence by rememberSaveable { mutableStateOf(history.currentMatch.getSequence()) }
     val scrollState = rememberScrollState()
     val orientation = LocalConfiguration.current.orientation
-    val match = GameHistory()
 
     ConstraintLayout(modifier = Modifier) {
         val (c1, c2, r1, r2) = createRefs()
@@ -91,13 +90,13 @@ fun MainScreen(onEndClicked: () -> Unit){
                     modifier = Modifier.weight(1f).fillMaxHeight().padding(top = 0.dp),
                     colors = ButtonDefaults.buttonColors(Red),
                     contentPadding = PaddingValues(0.dp),
-                    onClick = { buttonCounter = buttonPress('R', buttonCounter) }
+                    onClick = { currentSequence = history.currentMatch.buttonPress('R') }
                 ) {}
                 Button(
                     modifier = Modifier.weight(1f).fillMaxHeight().padding(top = 0.dp),
                     colors = ButtonDefaults.buttonColors(Green),
                     contentPadding = PaddingValues(0.dp),
-                    onClick = { buttonCounter = buttonPress('G', buttonCounter) }
+                    onClick = {currentSequence = history.currentMatch.buttonPress('G') }
                 ) {}
             }
             Row(modifier = Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
@@ -105,13 +104,13 @@ fun MainScreen(onEndClicked: () -> Unit){
                     modifier = Modifier.weight(1f).fillMaxHeight(),
                     colors = ButtonDefaults.buttonColors(Blue),
                     contentPadding = PaddingValues(0.dp),
-                    onClick = { buttonCounter = buttonPress('B', buttonCounter) }
+                    onClick = {currentSequence = history.currentMatch.buttonPress('B') }
                 ) {}
                 Button(
                     modifier = Modifier.weight(1f).fillMaxHeight(),
                     colors = ButtonDefaults.buttonColors(Magenta),
                     contentPadding = PaddingValues(0.dp),
-                    onClick = { buttonCounter = buttonPress('M', buttonCounter) }
+                    onClick = {currentSequence = history.currentMatch.buttonPress('M') }
                 ) {}
             }
             Row(modifier = Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
@@ -119,13 +118,13 @@ fun MainScreen(onEndClicked: () -> Unit){
                     modifier = Modifier.weight(1f).fillMaxHeight(),
                     colors = ButtonDefaults.buttonColors(Yellow),
                     contentPadding = PaddingValues(0.dp),
-                    onClick = { buttonCounter = buttonPress('Y', buttonCounter) }
+                    onClick = {currentSequence = history.currentMatch.buttonPress('Y') }
                 ) {}
                 Button(
                     modifier = Modifier.weight(1f).fillMaxHeight(),
                     colors = ButtonDefaults.buttonColors(Cyan),
                     contentPadding = PaddingValues(0.dp),
-                    onClick = { buttonCounter = buttonPress('C', buttonCounter) }
+                    onClick = {currentSequence = history.currentMatch.buttonPress('C') }
                 ) {}
             }
         }
@@ -146,7 +145,7 @@ fun MainScreen(onEndClicked: () -> Unit){
         }  ){
             Card(modifier = Modifier.fillMaxHeight().fillMaxWidth()) {
                 Text(
-                    text = buttonCounter,
+                    text = currentSequence,
                     modifier = Modifier.verticalScroll(scrollState),
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Medium
@@ -171,7 +170,9 @@ fun MainScreen(onEndClicked: () -> Unit){
                 modifier = Modifier.weight(1f).fillMaxHeight(),
                 colors = ButtonDefaults.buttonColors(Red2),
                 contentPadding = PaddingValues(0.dp),
-                onClick = {buttonCounter = ""}
+                onClick = {history.currentMatch.resetSequence()
+                    history.currentMatch.resetCount()
+                    currentSequence = ""}
             ) {
                 Text(text = stringResource(R.string.canc),
                     modifier = Modifier,
@@ -182,7 +183,8 @@ fun MainScreen(onEndClicked: () -> Unit){
                 modifier = Modifier.weight(1f).fillMaxHeight(),
                 colors = ButtonDefaults.buttonColors(Green2),
                 contentPadding = PaddingValues(0.dp),
-                onClick = {match.endGame(buttonCounter)
+                onClick = {history.endGame()
+                    currentSequence = ""
                     onEndClicked()
                 }
             ) {

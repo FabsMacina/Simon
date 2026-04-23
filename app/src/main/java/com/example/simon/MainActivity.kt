@@ -21,6 +21,7 @@ class MainActivity: ComponentActivity() {
         setContent {
             SimonTheme {
                 val navController = rememberNavController()
+                val currentHistory = GameHistory()
 
                 Scaffold(modifier = Modifier.fillMaxSize()){ innerPadding ->
                     NavHost(
@@ -28,10 +29,11 @@ class MainActivity: ComponentActivity() {
                         modifier = Modifier.padding(innerPadding)
                     ) {
                         composable("main"){
-                            MainScreen(onEndClicked = { navController.navigate("history") })
+                            MainScreen( history = currentHistory,
+                                onEndClicked = { navController.navigate("history") })
                         }
                         composable("history"){
-                            HistoryScreen()
+                            HistoryScreen(currentHistory)
                         }
                     }
                 }
