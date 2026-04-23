@@ -2,6 +2,7 @@ package com.example.simon
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -24,7 +25,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -42,6 +42,7 @@ fun MainScreen(onEndClicked: () -> Unit){
     var buttonCounter by rememberSaveable { mutableStateOf("") }
     val scrollState = rememberScrollState()
     val orientation = LocalConfiguration.current.orientation
+    val match = GameHistory()
 
     ConstraintLayout(modifier = Modifier) {
         val (c1, c2, r1, r2) = createRefs()
@@ -55,17 +56,16 @@ fun MainScreen(onEndClicked: () -> Unit){
             start.linkTo(parent.start)
             end.linkTo(parent.end)
         }, horizontalArrangement = Arrangement.End){
-            Button(
-                modifier = Modifier.fillMaxHeight(),
-                shape = ButtonDefaults.shape,
-                contentPadding = PaddingValues(0.dp),
-                onClick = {}
+            Card(
+                modifier = Modifier.fillMaxHeight().align(Alignment.CenterVertically),
             ) {
-                Text(modifier = Modifier.padding(horizontal = 8.dp),
-                    text = stringResource(R.string.lang),
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Medium
-                )
+                Box(modifier = Modifier.fillMaxHeight()){
+                    Text(modifier = Modifier.padding(horizontal = 8.dp).align(Alignment.Center),
+                        text = stringResource(R.string.lang),
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
             }
         }
         Column(modifier = if(orientation == Configuration.ORIENTATION_LANDSCAPE){
@@ -91,13 +91,13 @@ fun MainScreen(onEndClicked: () -> Unit){
                     modifier = Modifier.weight(1f).fillMaxHeight().padding(top = 0.dp),
                     colors = ButtonDefaults.buttonColors(Red),
                     contentPadding = PaddingValues(0.dp),
-                    onClick = { buttonCounter += "R, " }
+                    onClick = { buttonCounter = buttonPress('R', buttonCounter) }
                 ) {}
                 Button(
                     modifier = Modifier.weight(1f).fillMaxHeight().padding(top = 0.dp),
                     colors = ButtonDefaults.buttonColors(Green),
                     contentPadding = PaddingValues(0.dp),
-                    onClick = { buttonCounter += "G, " }
+                    onClick = { buttonCounter = buttonPress('G', buttonCounter) }
                 ) {}
             }
             Row(modifier = Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
@@ -105,13 +105,13 @@ fun MainScreen(onEndClicked: () -> Unit){
                     modifier = Modifier.weight(1f).fillMaxHeight(),
                     colors = ButtonDefaults.buttonColors(Blue),
                     contentPadding = PaddingValues(0.dp),
-                    onClick = { buttonCounter += "B, " }
+                    onClick = { buttonCounter = buttonPress('B', buttonCounter) }
                 ) {}
                 Button(
                     modifier = Modifier.weight(1f).fillMaxHeight(),
                     colors = ButtonDefaults.buttonColors(Magenta),
                     contentPadding = PaddingValues(0.dp),
-                    onClick = { buttonCounter += "M, " }
+                    onClick = { buttonCounter = buttonPress('M', buttonCounter) }
                 ) {}
             }
             Row(modifier = Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
@@ -119,13 +119,13 @@ fun MainScreen(onEndClicked: () -> Unit){
                     modifier = Modifier.weight(1f).fillMaxHeight(),
                     colors = ButtonDefaults.buttonColors(Yellow),
                     contentPadding = PaddingValues(0.dp),
-                    onClick = { buttonCounter += "Y, " }
+                    onClick = { buttonCounter = buttonPress('Y', buttonCounter) }
                 ) {}
                 Button(
                     modifier = Modifier.weight(1f).fillMaxHeight(),
                     colors = ButtonDefaults.buttonColors(Cyan),
                     contentPadding = PaddingValues(0.dp),
-                    onClick = { buttonCounter += "C, " }
+                    onClick = { buttonCounter = buttonPress('C', buttonCounter) }
                 ) {}
             }
         }
@@ -182,7 +182,9 @@ fun MainScreen(onEndClicked: () -> Unit){
                 modifier = Modifier.weight(1f).fillMaxHeight(),
                 colors = ButtonDefaults.buttonColors(Green2),
                 contentPadding = PaddingValues(0.dp),
-                onClick = onEndClicked
+                onClick = {match.endGame(buttonCounter)
+                    onEndClicked()
+                }
             ) {
                 Text(text = stringResource(R.string.end),
                     modifier = Modifier,
@@ -192,10 +194,3 @@ fun MainScreen(onEndClicked: () -> Unit){
         }
     }
 }
-/*
-@Preview(showBackground = true)
-@Composable
-fun MainScreenPreview(){
-    MainScreen()
-}
- */
