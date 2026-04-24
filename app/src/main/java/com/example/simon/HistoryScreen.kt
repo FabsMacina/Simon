@@ -26,7 +26,7 @@ fun HistoryScreen(history: GameHistory){
     val orientation = LocalConfiguration.current.orientation
 
     ConstraintLayout(modifier = Modifier.padding(10.dp)) {
-        val (c1, c2, r1, card) = createRefs()
+        val (c1, r1, card) = createRefs()
         Row(modifier = if(orientation == Configuration.ORIENTATION_LANDSCAPE){
             Modifier.fillMaxHeight(0.1f)
         }else{
@@ -72,60 +72,50 @@ fun HistoryScreen(history: GameHistory){
         }else{
             Modifier.fillMaxHeight(0.8f)
         }
-            .fillMaxWidth(
-                if(orientation == Configuration.ORIENTATION_LANDSCAPE){
-                    0.1f
-                }else{
-                    0.2f
-                })
+            .fillMaxWidth()
             .constrainAs(c1){
                 top.linkTo(card.bottom)
                 start.linkTo(parent.start)
-                end.linkTo(c2.start)
+                end.linkTo(parent.end)
             } ) {
             itemsIndexed(history.getGameCountHistory()){ index, item ->
-                Text(text = if(history.getGameCountHistory().isNotEmpty())
-                    "$item"
-                else
-                    "",
-                    modifier = Modifier,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium)
-            }
-        }
-        LazyColumn(modifier= if(orientation == Configuration.ORIENTATION_LANDSCAPE){
-            Modifier.fillMaxHeight(0.65f)
-        }else{
-            Modifier.fillMaxHeight(0.8f)
-        }
-            .fillMaxWidth(
-                if(orientation == Configuration.ORIENTATION_LANDSCAPE){
-                    0.9f
-                }else{
-                    0.8f
-                })
-            .constrainAs(c2){
-                top.linkTo(card.bottom)
-                start.linkTo(c1.end)
-                end.linkTo(parent.end)
-            }) {
-            itemsIndexed(history.getGameSequenceHistory()){ index, item ->
-                Text(text = if(history.getGameSequenceHistory().isNotEmpty()){
-                    if(item.length>34 && orientation == Configuration.ORIENTATION_PORTRAIT){
-                        item.take(34)+"..."
-                    }else if(item.length>88 && orientation == Configuration.ORIENTATION_LANDSCAPE){
-                        item.take(88)+"..."
+                Row(modifier = Modifier.padding(10.dp).fillMaxWidth()){
+                    Box(modifier = if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+                        Modifier.fillMaxWidth(0.05f)
                     }else{
-                        item
+                        Modifier.fillMaxWidth(0.1f)
+                    } ){
+                        Text(text = if(history.getGameCountHistory().isNotEmpty())
+                            "$item"
+                        else
+                            "",
+                            modifier = Modifier,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Medium)
+                    }
+
+                    Box(modifier = if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+                        Modifier.fillMaxWidth(0.95f)
+                    }else{
+                        Modifier.fillMaxWidth(0.9f)
+                    } ){
+                        Text(text = if(history.getGameSequenceHistory().isNotEmpty()){
+                            if(history.getGameSequenceHistory()[index].length>34 && orientation == Configuration.ORIENTATION_PORTRAIT){
+                                history.getGameSequenceHistory()[index].take(34)+"..."
+                            }else if(history.getGameSequenceHistory()[index].length>88 && orientation == Configuration.ORIENTATION_LANDSCAPE){
+                                history.getGameSequenceHistory()[index].take(88)+"..."
+                            }else{
+                                history.getGameSequenceHistory()[index]
+                            }
+                        }
+                        else
+                            "",
+                            modifier = Modifier,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Medium)
                     }
                 }
-                    else
-                        "",
-                    modifier = Modifier,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium)
             }
         }
-
     }
 }
