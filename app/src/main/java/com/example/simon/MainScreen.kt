@@ -43,7 +43,7 @@ fun MainScreen(history: GameHistory, onEndClicked: () -> Unit){
     val scrollState = rememberScrollState()
     val orientation = LocalConfiguration.current.orientation
 
-    ConstraintLayout(modifier = Modifier) {
+    ConstraintLayout(modifier = Modifier.padding(10.dp)) {
         val (c1, c2, r1, r2) = createRefs()
         Row(modifier = if(orientation == Configuration.ORIENTATION_LANDSCAPE){
             Modifier.fillMaxHeight(0.1f)
@@ -56,7 +56,8 @@ fun MainScreen(history: GameHistory, onEndClicked: () -> Unit){
             end.linkTo(parent.end)
         }, horizontalArrangement = Arrangement.End){
             Card(
-                modifier = Modifier.fillMaxHeight().align(Alignment.CenterVertically),
+                modifier = Modifier.fillMaxHeight().padding().align(Alignment.CenterVertically),
+
             ) {
                 Box(modifier = Modifier.fillMaxHeight()){
                     Text(modifier = Modifier.padding(horizontal = 8.dp).align(Alignment.Center),
@@ -68,32 +69,32 @@ fun MainScreen(history: GameHistory, onEndClicked: () -> Unit){
             }
         }
         Column(modifier = if(orientation == Configuration.ORIENTATION_LANDSCAPE){
-            Modifier.fillMaxHeight(0.9f).fillMaxWidth(0.5f)
+            Modifier.fillMaxHeight(0.88f).fillMaxWidth(0.45f)
         }else{
-            Modifier.fillMaxHeight(0.5f).fillMaxWidth()
+            Modifier.fillMaxHeight(0.45f).fillMaxWidth()
         }
             .constrainAs(c1) {
-                top.linkTo(r1.bottom, margin = 0.dp)
+                top.linkTo(r1.bottom, 10.dp)
                 start.linkTo(parent.start)
                 if(orientation == Configuration.ORIENTATION_LANDSCAPE){
                     bottom.linkTo(parent.bottom)
-                    end.linkTo(c2.start)
+                    end.linkTo(c2.start, 5.dp)
                 }else{
                     bottom.linkTo(c2.top)
                     end.linkTo(parent.end)
                 }
             },
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(0.dp)) {
+            verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Row(modifier = Modifier.weight(1f).fillMaxHeight(), verticalAlignment = Alignment.CenterVertically) {
                 Button(
-                    modifier = Modifier.weight(1f).fillMaxHeight().padding(top = 0.dp),
+                    modifier = Modifier.weight(1f).fillMaxHeight().padding(end = 2.dp),
                     colors = ButtonDefaults.buttonColors(Red),
                     contentPadding = PaddingValues(0.dp),
                     onClick = { currentSequence = history.currentMatch.buttonPress('R') }
                 ) {}
                 Button(
-                    modifier = Modifier.weight(1f).fillMaxHeight().padding(top = 0.dp),
+                    modifier = Modifier.weight(1f).fillMaxHeight().padding(start = 2.dp),
                     colors = ButtonDefaults.buttonColors(Green),
                     contentPadding = PaddingValues(0.dp),
                     onClick = {currentSequence = history.currentMatch.buttonPress('G') }
@@ -101,13 +102,13 @@ fun MainScreen(history: GameHistory, onEndClicked: () -> Unit){
             }
             Row(modifier = Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
                 Button(
-                    modifier = Modifier.weight(1f).fillMaxHeight(),
+                    modifier = Modifier.weight(1f).fillMaxHeight().padding(end = 2.dp),
                     colors = ButtonDefaults.buttonColors(Blue),
                     contentPadding = PaddingValues(0.dp),
                     onClick = {currentSequence = history.currentMatch.buttonPress('B') }
                 ) {}
                 Button(
-                    modifier = Modifier.weight(1f).fillMaxHeight(),
+                    modifier = Modifier.weight(1f).fillMaxHeight().padding(start = 2.dp),
                     colors = ButtonDefaults.buttonColors(Magenta),
                     contentPadding = PaddingValues(0.dp),
                     onClick = {currentSequence = history.currentMatch.buttonPress('M') }
@@ -115,13 +116,13 @@ fun MainScreen(history: GameHistory, onEndClicked: () -> Unit){
             }
             Row(modifier = Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
                 Button(
-                    modifier = Modifier.weight(1f).fillMaxHeight(),
+                    modifier = Modifier.weight(1f).fillMaxHeight().padding(end = 2.dp),
                     colors = ButtonDefaults.buttonColors(Yellow),
                     contentPadding = PaddingValues(0.dp),
                     onClick = {currentSequence = history.currentMatch.buttonPress('Y') }
                 ) {}
                 Button(
-                    modifier = Modifier.weight(1f).fillMaxHeight(),
+                    modifier = Modifier.weight(1f).fillMaxHeight().padding(start = 2.dp),
                     colors = ButtonDefaults.buttonColors(Cyan),
                     contentPadding = PaddingValues(0.dp),
                     onClick = {currentSequence = history.currentMatch.buttonPress('C') }
@@ -129,45 +130,45 @@ fun MainScreen(history: GameHistory, onEndClicked: () -> Unit){
             }
         }
         Column(modifier = if(orientation == Configuration.ORIENTATION_LANDSCAPE){
-            Modifier.fillMaxHeight(0.7f).fillMaxWidth(0.5f)
+            Modifier.fillMaxHeight(0.65f).fillMaxWidth(0.45f)
         }else{
             Modifier.fillMaxHeight(0.35f).fillMaxWidth()
         }.padding(0.dp).constrainAs(c2){
             end.linkTo(parent.end)
             bottom.linkTo(r2.top)
             if(orientation == Configuration.ORIENTATION_LANDSCAPE){
-                top.linkTo(r1.bottom)
-                start.linkTo(c1.end)
+                top.linkTo(r1.bottom, 10.dp)
+                start.linkTo(c1.end, 5.dp)
             }else{
-                top.linkTo(c1.bottom)
+                top.linkTo(c1.bottom, 10.dp)
                 start.linkTo(parent.start)
             }
         }  ){
             Card(modifier = Modifier.fillMaxHeight().fillMaxWidth()) {
                 Text(
                     text = currentSequence,
-                    modifier = Modifier.verticalScroll(scrollState),
+                    modifier = Modifier.verticalScroll(scrollState).padding(10.dp),
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Medium
                 )
             }
         }
         Row(modifier = if(orientation == Configuration.ORIENTATION_LANDSCAPE){
-            Modifier.fillMaxHeight(0.2f).fillMaxWidth(0.5f)
+            Modifier.fillMaxHeight(0.2f).fillMaxWidth(0.45f)
         }else{
             Modifier.fillMaxHeight(0.1f).fillMaxWidth()
         }.padding(0.dp).constrainAs(r2){
-            top.linkTo(c2.bottom)
+            top.linkTo(c2.bottom, 10.dp)
             bottom.linkTo(parent.bottom)
             end.linkTo(parent.end)
             if(orientation == Configuration.ORIENTATION_LANDSCAPE){
-                start.linkTo(c1.end)
+                start.linkTo(c1.end, 5.dp)
             }else{
                 start.linkTo(parent.start)
             }
         } ){
             Button(
-                modifier = Modifier.weight(1f).fillMaxHeight(),
+                modifier = Modifier.weight(1f).fillMaxHeight().padding(end = 2.dp),
                 colors = ButtonDefaults.buttonColors(Red2),
                 contentPadding = PaddingValues(0.dp),
                 onClick = {history.currentMatch.resetSequence()
@@ -180,7 +181,7 @@ fun MainScreen(history: GameHistory, onEndClicked: () -> Unit){
                     fontWeight = FontWeight.Medium)
             }
             Button(
-                modifier = Modifier.weight(1f).fillMaxHeight(),
+                modifier = Modifier.weight(1f).fillMaxHeight().padding(start = 2.dp),
                 colors = ButtonDefaults.buttonColors(Green2),
                 contentPadding = PaddingValues(0.dp),
                 onClick = {history.endGame()

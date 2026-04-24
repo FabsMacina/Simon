@@ -67,8 +67,11 @@ fun HistoryScreen(history: GameHistory){
                 )
             }
         }
-        LazyColumn(modifier= Modifier
-            .fillMaxHeight()
+        LazyColumn(modifier = if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+            Modifier.fillMaxHeight(0.65f)
+        }else{
+            Modifier.fillMaxHeight(0.8f)
+        }
             .fillMaxWidth(
                 if(orientation == Configuration.ORIENTATION_LANDSCAPE){
                     0.1f
@@ -90,8 +93,11 @@ fun HistoryScreen(history: GameHistory){
                     fontWeight = FontWeight.Medium)
             }
         }
-        LazyColumn(modifier= Modifier
-            .fillMaxHeight()
+        LazyColumn(modifier= if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+            Modifier.fillMaxHeight(0.65f)
+        }else{
+            Modifier.fillMaxHeight(0.8f)
+        }
             .fillMaxWidth(
                 if(orientation == Configuration.ORIENTATION_LANDSCAPE){
                     0.9f
@@ -105,10 +111,10 @@ fun HistoryScreen(history: GameHistory){
             }) {
             itemsIndexed(history.getGameSequenceHistory()){ index, item ->
                 Text(text = if(history.getGameSequenceHistory().isNotEmpty()){
-                    if(item.length>40 && orientation == Configuration.ORIENTATION_PORTRAIT){
-                        item.take(40)+"..."
-                    }else if(item.length>50 && orientation == Configuration.ORIENTATION_LANDSCAPE){
-                        item.take(100)+"..."
+                    if(item.length>34 && orientation == Configuration.ORIENTATION_PORTRAIT){
+                        item.take(34)+"..."
+                    }else if(item.length>88 && orientation == Configuration.ORIENTATION_LANDSCAPE){
+                        item.take(88)+"..."
                     }else{
                         item
                     }
