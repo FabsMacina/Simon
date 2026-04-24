@@ -1,6 +1,5 @@
 package com.example.simon.ui.theme
 
-import androidx.compose.material3.ButtonColors
 import androidx.compose.ui.graphics.Color
 
 val Red = Color(0xFFFF0000)
@@ -11,14 +10,3 @@ val Yellow = Color(0xFFFFFF00)
 val Cyan = Color(0xFF00FFFF)
 val Red2 = Color(0xCCCC0000)
 val Green2 = Color(0xCC00CC00)
-
-
-
-/*
-val BuRed = ButtonColors(Red, Red, Red, Red)
-val BuGreen = ButtonColors(Green, Green, Green, Green)
-val BuBlue = ButtonColors(Blue, Blue, Blue, Blue)
-val BuMagenta = ButtonColors(Magenta, Magenta, Magenta, Magenta)
-val BuYellow = ButtonColors(Yellow, Yellow, Yellow, Yellow)
-val BuCyan = ButtonColors(Cyan, Cyan, Cyan, Cyan)
-*/

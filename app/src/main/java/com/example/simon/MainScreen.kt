@@ -38,13 +38,25 @@ import com.example.simon.ui.theme.Red2
 import com.example.simon.ui.theme.Yellow
 
 @Composable
+//The main screen requires a GameHistory object and onEndClicked().
+//It displays a screen containing a card that shows the current language, a 3x2 matrix of buttons,
+//a card that shows the sequence of pressed buttons, the cancel and end game buttons.
 fun MainScreen(history: GameHistory, onEndClicked: () -> Unit){
+
+    //This allows to remember the instance state of currentSequence
     var currentSequence by rememberSaveable { mutableStateOf(history.currentMatch.getSequence()) }
+
+    //Allows the displayed sequence of pressed buttons to scroll vertically
     val scrollState = rememberScrollState()
+
+    //Required for different configurations for landscape and portrait orientations
     val orientation = LocalConfiguration.current.orientation
 
+    //Enables constraint layout, allowing the elements to anchor to one another
     ConstraintLayout(modifier = Modifier.padding(10.dp)) {
         val (c1, c2, r1, r2) = createRefs()
+
+        //This row contains the card in the upper right corner displaying the current language
         Row(modifier = if(orientation == Configuration.ORIENTATION_LANDSCAPE){
             Modifier.fillMaxHeight(0.1f)
         }else{
@@ -68,6 +80,9 @@ fun MainScreen(history: GameHistory, onEndClicked: () -> Unit){
                 }
             }
         }
+
+        //This column contains the rows that contain the main buttons, allowing for a 3x2 matrix display
+        //The different heights, widths and anchoring allow for a different display in landscape mode
         Column(modifier = if(orientation == Configuration.ORIENTATION_LANDSCAPE){
             Modifier.fillMaxHeight(0.88f).fillMaxWidth(0.45f)
         }else{
@@ -86,7 +101,12 @@ fun MainScreen(history: GameHistory, onEndClicked: () -> Unit){
             },
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(10.dp)) {
+
+            //All the rows and buttons have a weight of 1 to allow the correct displaying
             Row(modifier = Modifier.weight(1f).fillMaxHeight(), verticalAlignment = Alignment.CenterVertically) {
+
+                //All button colors are implemented in ui.theme.Colors.kt
+                //onClick calls the buttonPress function from the Match class
                 Button(
                     modifier = Modifier.weight(1f).fillMaxHeight().padding(end = 2.dp),
                     colors = ButtonDefaults.buttonColors(Red),
@@ -129,6 +149,8 @@ fun MainScreen(history: GameHistory, onEndClicked: () -> Unit){
                 ) {}
             }
         }
+
+        //This column contains a card that displays the sequence of buttons pressed so far
         Column(modifier = if(orientation == Configuration.ORIENTATION_LANDSCAPE){
             Modifier.fillMaxHeight(0.65f).fillMaxWidth(0.45f)
         }else{
@@ -153,6 +175,8 @@ fun MainScreen(history: GameHistory, onEndClicked: () -> Unit){
                 )
             }
         }
+
+        //This row contains the "Cancel" and "End Game" buttons
         Row(modifier = if(orientation == Configuration.ORIENTATION_LANDSCAPE){
             Modifier.fillMaxHeight(0.2f).fillMaxWidth(0.45f)
         }else{
@@ -167,6 +191,8 @@ fun MainScreen(history: GameHistory, onEndClicked: () -> Unit){
                 start.linkTo(parent.start)
             }
         } ){
+
+            //onClick resets the current sequence and counter, both in the match object and displayed
             Button(
                 modifier = Modifier.weight(1f).fillMaxHeight().padding(end = 2.dp),
                 colors = ButtonDefaults.buttonColors(Red2),
@@ -180,6 +206,9 @@ fun MainScreen(history: GameHistory, onEndClicked: () -> Unit){
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Medium)
             }
+
+            //onClick calls the endGame() function, resets the displayed sequence and calls onEndClicked()
+            //The onEndClicked() function allows the Nav to switch to the next screen
             Button(
                 modifier = Modifier.weight(1f).fillMaxHeight().padding(start = 2.dp),
                 colors = ButtonDefaults.buttonColors(Green2),

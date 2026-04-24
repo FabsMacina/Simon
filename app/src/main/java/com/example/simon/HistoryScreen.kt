@@ -22,11 +22,19 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 
 @Composable
+//The game history screen requires a GameHistory object.
+//It displays a screen containing a card that shows the current language, a screen title and
+//a list of the last played matches, showing the number of button presses and the sequence
 fun HistoryScreen(history: GameHistory){
+
+    //Required for different configurations for landscape and portrait orientations
     val orientation = LocalConfiguration.current.orientation
 
+    //Enables constraint layout, allowing the elements to anchor to one another
     ConstraintLayout(modifier = Modifier.padding(10.dp)) {
         val (c1, r1, card) = createRefs()
+
+        //This row contains the card in the upper right corner displaying the current language
         Row(modifier = if(orientation == Configuration.ORIENTATION_LANDSCAPE){
             Modifier.fillMaxHeight(0.1f)
         }else{
@@ -49,6 +57,8 @@ fun HistoryScreen(history: GameHistory){
                 }
             }
         }
+
+        //This row contains a box that displays the title of the screen
         Row(modifier = if(orientation == Configuration.ORIENTATION_LANDSCAPE){
             Modifier.fillMaxHeight(0.2f)
         }else{
@@ -67,6 +77,8 @@ fun HistoryScreen(history: GameHistory){
                 )
             }
         }
+
+        //This column contains the list of played matches, a row for each match.
         LazyColumn(modifier = if(orientation == Configuration.ORIENTATION_LANDSCAPE){
             Modifier.fillMaxHeight(0.65f)
         }else{
@@ -80,6 +92,8 @@ fun HistoryScreen(history: GameHistory){
             } ) {
             itemsIndexed(history.getGameCountHistory()){ index, item ->
                 Row(modifier = Modifier.padding(10.dp).fillMaxWidth()){
+
+                    //These boxes contain the number of buttons pressed in the sequence
                     Box(modifier = if(orientation == Configuration.ORIENTATION_LANDSCAPE){
                         Modifier.fillMaxWidth(0.05f)
                     }else{
@@ -94,6 +108,7 @@ fun HistoryScreen(history: GameHistory){
                             fontWeight = FontWeight.Medium)
                     }
 
+                    //These boxes contain the sequence of buttons pressed
                     Box(modifier = if(orientation == Configuration.ORIENTATION_LANDSCAPE){
                         Modifier.fillMaxWidth(0.95f)
                     }else{
