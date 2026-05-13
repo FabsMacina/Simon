@@ -90,7 +90,7 @@ fun MatchDetailScreen(sequence: String, count: Int){
                 end.linkTo(parent.end)
             } ) {
             item{
-                Row(modifier = Modifier.padding(10.dp).fillMaxWidth()){
+                Row(modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp).fillMaxWidth()){
 
                     //These boxes contain the number of buttons pressed in the sequence
                     Box(modifier = if(orientation == Configuration.ORIENTATION_LANDSCAPE){

@@ -6,4 +6,5 @@
     <string name="lang">English</string>
     <string name="hist_title">Match history</string>
     <string name="det_title">Match detail</string>
+    <string name="to_game">Play</string>
 </resources>

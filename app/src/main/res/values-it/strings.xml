@@ -6,4 +6,5 @@
     <string name="lang">Italiano</string>
     <string name="hist_title">Storico partite</string>
     <string name="det_title">Dettagli partita</string>
+    <string name="to_game">Gioca</string>
 </resources>

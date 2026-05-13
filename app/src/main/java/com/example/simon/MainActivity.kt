@@ -37,7 +37,7 @@ class MainActivity: ComponentActivity() {
 
                 Scaffold(modifier = Modifier.fillMaxSize()){ innerPadding ->
                     NavHost(
-                        navController = navController, startDestination = "main",
+                        navController = navController, startDestination = "history",
                         modifier = Modifier.padding(innerPadding)
                     ) {
                         composable("main"){
@@ -51,6 +51,7 @@ class MainActivity: ComponentActivity() {
 
                             //The GameHistory object is passed to the HistoryScreen
                             HistoryScreen(currentHistory,
+                                onGameClicked = { navController.navigate("main") },
                                 onDetailClicked = { sequence, count ->
                                     val encoded = Uri.encode(sequence)
                                     navController.navigate("detail/$encoded/$count") })
