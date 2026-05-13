@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.simon.ui.theme.Blue
 import com.example.simon.ui.theme.Cyan
+import com.example.simon.ui.theme.Cyan2
 import com.example.simon.ui.theme.Green
 import com.example.simon.ui.theme.Green2
 import com.example.simon.ui.theme.Magenta
@@ -202,6 +203,18 @@ fun MainScreen(history: GameHistory, onEndClicked: () -> Unit){
                     currentSequence = ""}
             ) {
                 Text(text = stringResource(R.string.canc),
+                    modifier = Modifier,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Medium)
+            }
+
+            Button(
+                modifier = Modifier.weight(1f).fillMaxHeight().padding(start = 2.dp, end = 2.dp),
+                colors = ButtonDefaults.buttonColors(Cyan2),
+                contentPadding = PaddingValues(0.dp),
+                onClick = {}
+            ) {
+                Text(text = stringResource(R.string.pause),
                     modifier = Modifier,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Medium)
