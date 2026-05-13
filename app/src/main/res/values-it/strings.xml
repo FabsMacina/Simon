@@ -2,7 +2,8 @@
 <resources>
     <string name="app_name">Simon</string>
     <string name="canc">Cancella</string>
-    <string name="end">Termina Partita</string>
+    <string name="end">Termina partita</string>
     <string name="lang">Italiano</string>
     <string name="hist_title">Storico partite</string>
+    <string name="det_title">Dettagli partita</string>
 </resources>

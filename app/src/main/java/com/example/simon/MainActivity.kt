@@ -12,6 +12,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.lifecycle.viewmodel.compose.viewModel
+import android.net.Uri
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import com.example.simon.ui.theme.SimonTheme
 
 class MainActivity: ComponentActivity() {
@@ -43,10 +46,24 @@ class MainActivity: ComponentActivity() {
                             MainScreen( history = currentHistory,
                                 onEndClicked = { navController.navigate("history") })
                         }
+
                         composable("history"){
 
                             //The GameHistory object is passed to the HistoryScreen
-                            HistoryScreen(currentHistory)
+                            HistoryScreen(currentHistory,
+                                onDetailClicked = { sequence, count ->
+                                    val encoded = Uri.encode(sequence)
+                                    navController.navigate("detail/$encoded/$count") })
+                        }
+
+                        composable("detail/{sequence}/{count}",
+                            listOf(
+                            navArgument("sequence") { type = NavType.StringType },
+                            navArgument("count") { type = NavType.IntType }))
+                        {   backStackEntry ->
+                                val sequence = backStackEntry.arguments?.getString("sequence") ?: ""
+                                val count = backStackEntry.arguments?.getInt("count") ?: 0
+                                MatchDetailScreen(sequence = sequence, count = count)
                         }
                     }
                 }

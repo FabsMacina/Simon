@@ -21,12 +21,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import kotlin.text.take
 
 @Composable
-//The game history screen requires a GameHistory object.
-//It displays a screen containing a card that shows the current language, a screen title and
-//a list of the last played matches, showing the number of button presses and the sequence
-fun HistoryScreen(history: GameHistory, onDetailClicked: (String, Int) -> Unit){
+fun MatchDetailScreen(sequence: String, count: Int){
 
     //Required for different configurations for landscape and portrait orientations
     val orientation = LocalConfiguration.current.orientation
@@ -72,7 +70,7 @@ fun HistoryScreen(history: GameHistory, onDetailClicked: (String, Int) -> Unit){
             }){
             Box(modifier = Modifier.fillMaxHeight()){
                 Text(modifier = Modifier.padding(horizontal = 8.dp).align(Alignment.Center),
-                    text = stringResource(R.string.hist_title),
+                    text = stringResource(R.string.det_title),
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Medium
                 )
@@ -91,7 +89,7 @@ fun HistoryScreen(history: GameHistory, onDetailClicked: (String, Int) -> Unit){
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             } ) {
-            itemsIndexed(history.getGameCountHistory()){ index, item ->
+            item{
                 Row(modifier = Modifier.padding(10.dp).fillMaxWidth()){
 
                     //These boxes contain the number of buttons pressed in the sequence
@@ -100,10 +98,7 @@ fun HistoryScreen(history: GameHistory, onDetailClicked: (String, Int) -> Unit){
                     }else{
                         Modifier.fillMaxWidth(0.1f)
                     } ){
-                        Text(text = if(history.getGameCountHistory().isNotEmpty())
-                            "$item"
-                        else
-                            "",
+                        Text(text = "$count",
                             modifier = Modifier,
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Medium)
@@ -115,18 +110,8 @@ fun HistoryScreen(history: GameHistory, onDetailClicked: (String, Int) -> Unit){
                     }else{
                         Modifier.fillMaxWidth(0.9f)
                     } ){
-                        Text(text = if(history.getGameSequenceHistory().isNotEmpty()){
-                            if(history.getGameSequenceHistory()[index].length>34 && orientation == Configuration.ORIENTATION_PORTRAIT){
-                                history.getGameSequenceHistory()[index].take(34)+"..."
-                            }else if(history.getGameSequenceHistory()[index].length>88 && orientation == Configuration.ORIENTATION_LANDSCAPE){
-                                history.getGameSequenceHistory()[index].take(88)+"..."
-                            }else{
-                                history.getGameSequenceHistory()[index]
-                            }
-                        }
-                        else
-                            "",
-                            modifier = Modifier.clickable(true, onClick = {onDetailClicked(history.getGameSequenceHistory()[index], item)}),
+                        Text(text = sequence.ifEmpty { "" },
+                            modifier = Modifier,
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Medium)
                     }
