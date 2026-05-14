@@ -34,6 +34,7 @@ class MainActivity: ComponentActivity() {
                 //Creates a GameHistory object that will persist until the app is closed.
                 //Extending ViewModel allows the instance to be saved on HistoryScreen
                 val currentHistory: GameHistory = viewModel()
+                val dbCurrentHistory: DbGameHistory = viewModel()
 
                 Scaffold(modifier = Modifier.fillMaxSize()){ innerPadding ->
                     NavHost(

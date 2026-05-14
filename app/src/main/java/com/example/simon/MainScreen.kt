@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -233,6 +234,7 @@ fun MainScreen(history: GameHistory, onEndClicked: () -> Unit){
             ) {
                 Text(text = stringResource(R.string.end),
                     modifier = Modifier,
+                    textAlign = TextAlign.Center,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Medium)
             }
